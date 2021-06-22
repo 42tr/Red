@@ -1,0 +1,63 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Build
+      run: go build
+      env:
+        CGO_ENABLED: 0
+      
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        source: "red"
+        target: "/root"
+      
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        source: "Dockerfile"
+        target: "/root"
+        
+    - name: multiple command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{HOST}}
+        username: root
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        script: |
+          cd /home/go/red
+          rm -rf red
+          rm -rf Dockfile
+          mv /root/red ./
+          mv /root/Dockerfile ./
+          docker stop kered
+          docker rm kered
+          docker rmi kered
+          docker build -t kered .
+          docker run -d --restart unless-stopped -p 8081:8081 -e MYSQL_HOST=${{secrets.MYSQL_HOST}} -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PWD='${{secrets.MYSQL_PWD}}' -e MYSQL_RED_DB=red --name=kered kered ./red
