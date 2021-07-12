@@ -46,12 +46,12 @@ func CheckLogin() Response {
 func Success(data ...interface{}) Response {
 	res := Response{
 		Code: CodeSuccess,
-		Msg: "success",
+		Msg:  "success",
 	}
 	if len(data) > 0 {
 		res = Response{
 			Code: CodeSuccess,
-			Msg: "success",
+			Msg:  "success",
 			Data: data[0],
 		}
 	}
