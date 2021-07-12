@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"red/serializer"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -18,13 +17,7 @@ func Ping(c *gin.Context) {
 
 // CurrentUser 获取当前用户
 func CurrentUID(c *gin.Context) uint {
-	if uid, _ := c.Get("uid"); uid != nil {
-		id, err := strconv.Atoi(uid.(string))
-		if err == nil {
-			return uint(id)
-		}
-	}
-	return 0
+	return c.GetUint("uid")
 }
 
 // ErrorResponse 返回错误消息
