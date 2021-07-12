@@ -53,7 +53,7 @@ jobs:
         script: |
           cd /home/go/red
           rm -rf red
-          rm -rf Dockfile
+          rm -rf Dockerfile
           mv /root/red ./
           mv /root/Dockerfile ./
           docker stop kered
