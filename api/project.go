@@ -1,6 +1,7 @@
 package api
 
 import (
+	"net/http"
 	"red/model"
 	"red/serializer"
 	"red/service"
@@ -19,6 +20,11 @@ func AddProject(c *gin.Context) {
 	} else {
 		c.JSON(200, ErrorResponse(err))
 	}
+}
+
+func GetAllProjectList(c *gin.Context) {
+	projects := service.GetAllProjectList(c)
+	c.JSON(http.StatusOK, serializer.BuildCommonProjects(projects))
 }
 
 func GetProjectList(c *gin.Context) {

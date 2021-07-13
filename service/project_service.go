@@ -7,6 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetAllProjectList(c *gin.Context) []model.Project {
+	projects := make([]model.Project, 0)
+	model.DB.Find(&projects)
+	return projects
+}
+
 func GetProjectList(c *gin.Context) []serializer.Project {
 	area := c.Param("area")
 

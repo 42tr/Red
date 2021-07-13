@@ -19,6 +19,17 @@ type Project struct {
 	Price3      float32 `json:"price3"`
 }
 
+func BuildCommonProjects(projects []model.Project) Response {
+	data := make([]Project, 0)
+	for _, project := range projects {
+		data = append(data, Project{
+			ID:   project.ID,
+			Name: project.Name,
+		})
+	}
+	return Success(data)
+}
+
 // BuildUser 序列化用户
 func BuildProject(project model.Project, party string, priceA, priceB, priceC float32) Project {
 	return Project{

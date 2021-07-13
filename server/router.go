@@ -23,6 +23,7 @@ func NewRouter() *gin.Engine {
 	project.Use(middleware.AuthRequired())
 	{
 		project.POST("", api.AddProject)
+		project.GET("list", api.GetAllProjectList)
 		project.GET("list/:area", api.GetProjectList)
 		project.PUT(":id", api.ChangeProject)
 		project.DELETE(":id", api.DeleteProject)
