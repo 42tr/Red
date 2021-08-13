@@ -33,7 +33,7 @@ func getSubList(c *gin.Context) (subList []float64) {
 	cookie := c.GetHeader("Cookie")
 
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://172.16.32.95:8080/user/subList", nil)
+	req, err := http.NewRequest("GET", "http://kisia.cn:8080/user/subList", nil)
 	// 	req, err := http.NewRequest("GET", "http://localhost:8080/user/subList", nil)
 	if err == nil {
 		req.Header.Set("Cookie", cookie)
