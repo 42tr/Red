@@ -51,6 +51,7 @@ jobs:
         password: ${{ secrets.SSH_PWD }}
         port: 22
         script: |
+          mkdir -p /home/go/red
           cd /home/go/red
           rm -rf red
           rm -rf Dockerfile
