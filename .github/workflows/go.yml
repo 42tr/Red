@@ -61,4 +61,4 @@ jobs:
           docker rm kered
           docker rmi kered
           docker build -t kered .
-          docker run -d --restart unless-stopped -p 8081:8081 -e MYSQL_HOST=${{secrets.MYSQL_HOST}} -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PWD='${{secrets.MYSQL_PWD}}' -e MYSQL_RED_DB=red --name=kered kered ./red
+          docker run -d --restart unless-stopped -p 8081:8081 -e MYSQL_HOST=${{secrets.MYSQL_HOST}} -e MYSQL_PORT=3306 -e MYSQL_USER=app -e MYSQL_PWD='${{secrets.MYSQL_PWD}}' -e MYSQL_RED_DB=red --name=kered kered ./red
